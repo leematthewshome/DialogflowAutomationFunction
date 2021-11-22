@@ -2,9 +2,11 @@ from flask import jsonify
 import json
 import requests
 
-CONTROL_ROOM = 'https://leemelbourne.my.automationanywhere.digital'
+CONTROL_ROOM = 'https://yourcrname.my.automationanywhere.digital'
 BOT_JSON = '{"fileId": 6560, "runAsUserIds": [55], "poolIds": [], "overrideDefaultDevice": false,  "botInput": { }}'
 BOT_JSON = json.loads(BOT_JSON)
+CR_USERNAME = 'your.username'
+CR_PASSWORD = 'your.password'
 
 def main_function(request):
 
@@ -27,7 +29,7 @@ def main_function(request):
     BOT_JSON["botInput"]["phone"] = {"type": "STRING", "string": phone }
     
     #get token to access control room
-    jsonpkg = '{"username": "my.username", "password": "my.password"}'
+    jsonpkg = '{"username": "' + CR_USERNAME + '", "password": "' + CR_PASSWORD + '"}'
     endpoint = '/v1/authentication'
     headers = {'Content-Type': 'application/json'}  
     url = CONTROL_ROOM + endpoint
