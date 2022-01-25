@@ -45,5 +45,11 @@ def main_function(request):
     jsonpkg = json.dumps(BOT_JSON)
     result = requests.post(url=url, headers=headers, data=jsonpkg, verify=True) 
     data = result.json()
-
-    return data
+    # Initial JSON response will only contain the deployment ID, which is not so useful for the user. When the bot finishes there will be outputs available to the user. 
+    # The outputs can be retreived via the API with the deployment ID, but that is not a human friendly reference.
+    # The cloud function should store a human friendly reference against each deployment ID and respond to the human user with the friendly reference (we have hard coded one below)
+    # The user could then come back to the chatbot and enter the reference (via a different intent) to check up on the status of their request.
+    
+    responseText = "Thank you very much for all the information. Your application reference is MORT001034. One of our experienced home loan consultants will be in contact very soon. You can check on the status of your application in this chat panel. Just mention your application reference."
+    res = {"fulfillmentMessages": [{"text": {"text": [responseText]}}]}
+    return res
